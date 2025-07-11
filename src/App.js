@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+ import Header from "./components/Header";
+import Table from "./components/Table";
+import Form from "./components/Form";
+import { useRef, useState } from "react";
+import Data from "./components/Data";
+import Buttons from  "./components/Buttons";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+ function App(){
 
-export default App;
+
+   
+   const [allTaskList,setAllTaskList] = useState(Data);
+   const [allPriority, setAllPriority] = useState(["High", "Normal", "Low"]);
+   const [defaultStatus,setDefaultStatus] = useState("Active");
+   const [taskStatus,setTaskStatus] = useState("Active");
+   const handleControl =(title,pid,date,status)=>{
+     let newTask = {title,pid,date,status};
+     setAllTaskList([...allTaskList,newTask]);
+   }
+    return <>
+    <Header />
+    <Form allPriority={allPriority} setAllPriority={setAllPriority} handleControl={handleControl} />
+    <Buttons allTaskList={allTaskList} setAllTaskList={setAllTaskList} defaultStatus={defaultStatus} setDefaultStatus={setDefaultStatus}  setTaskStatus={setTaskStatus}/>
+    <Table allTaskList={allTaskList} setAllTaskList={setAllTaskList} defaultStatus={defaultStatus} setDefaultStatus={setDefaultStatus} taskStatus={taskStatus}/>
+    </>
+ }
+
+ export default App;
